@@ -100,9 +100,9 @@ int main() {
 
     if(promedio >= 3){
         if(edad >= 18)
-            printf("Aprobado y mayor de edad\n");
+           printf("\n mayor de edad\n")
         else
-            printf("Aprobado pero menor de edad\n");
+            printf("\n  menor de edad\n");
     }
 
     bool estado = (promedio >= 3);
@@ -113,6 +113,8 @@ int main() {
     printf("Edad: %d\n", edad);
     printf("Promedio: %.2f\n", promedio);
     printf("Matricula: $%.2lf\n", matriculaValor);
+    printf("Estado: %s\n", (promedio >= 3) ? "Aprobado" : "Reprobado");
+    printf("Ingreso al laboratorio: %s\n", puedeIngresar ? "Permitido" : "No permitido");
 
     return 0;
 }
