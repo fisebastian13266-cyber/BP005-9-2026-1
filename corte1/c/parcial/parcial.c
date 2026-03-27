@@ -18,7 +18,7 @@ int main() {
     printf("Ingrese codigo: ");
     scanf("%d", &codigo);
 
-    getchar();
+    getchar(); // limpiar buffer
 
     printf("Ingrese nombre completo: ");
     fgets(nombre, sizeof(nombre), stdin);
@@ -43,6 +43,12 @@ int main() {
     printf("Ingrese nota 3: ");
     scanf("%f", &nota3);
 
+    // Validación de notas
+    if(nota1 < 0 || nota1 > 5 || nota2 < 0 || nota2 > 5 || nota3 < 0 || nota3 > 5){
+        printf("Error: Notas invalidas\n");
+        return 0;
+    }
+
     printf("Ingrese valor de matricula: ");
     scanf("%lf", &matriculaValor);
 
@@ -64,21 +70,17 @@ int main() {
     scanf("%d", &temp);
     monitor = temp;
 
-    if(nota1 < 0 || nota1 > 5 || nota2 < 0 || nota2 > 5 || nota3 < 0 || nota3 > 5){
-        printf("Error: Notas invalidas\n");
-        return 0;
-    }
-
+    // Calcular promedio
     promedio = (nota1 + nota2 + nota3) / 3;
 
-    printf("\n  El codigo es: \n ");
+    printf("\nEl codigo es: ");
 
     if(codigo % 2 == 0)
         printf("PAR\n");
     else
         printf("IMPAR\n");
 
-    printf("\n === Desempeño academico ===\n");
+    printf("\n=== Desempeño academico ===\n");
 
     if(promedio < 3.0)
         printf("Reprobado\n");
@@ -89,23 +91,24 @@ int main() {
     else
         printf("Excelente desempeño\n");
 
-        printf("\n INGRESO \n");
+    // Condición de ingreso
+    bool puedeIngresar = (matriculaActiva && documento && induccion) || monitor;
 
-    if((matriculaActiva && documento && induccion) || monitor)
+    printf("\n=== INGRESO ===\n");
+
+    if(puedeIngresar)
         printf("Puede ingresar al laboratorio\n");
     else
         printf("No puede ingresar al laboratorio\n");
 
-    printf("\n ESTADO \n");
+    printf("\n=== ESTADO ===\n");
 
     if(promedio >= 3){
         if(edad >= 18)
-           printf("\n mayor de edad\n")
+            printf("Aprobado y mayor de edad\n");
         else
-            printf("\n  menor de edad\n");
+            printf("Aprobado pero menor de edad\n");
     }
-
-    bool estado = (promedio >= 3);
 
     printf("\n=== RESUMEN ===\n");
     printf("Nombre: %s", nombre);
@@ -113,8 +116,11 @@ int main() {
     printf("Edad: %d\n", edad);
     printf("Promedio: %.2f\n", promedio);
     printf("Matricula: $%.2lf\n", matriculaValor);
-    printf("Estado: %s\n", (promedio >= 3) ? "Aprobado" : "Reprobado");
-    printf("Ingreso al laboratorio: %s\n", puedeIngresar ? "Permitido" : "No permitido");
+
+    // Operadores ternarios (REQUISITO)
+    printf("Estado final: %s\n", (promedio >= 3) ? "Aprobado" : "Reprobado");
+    printf("Acceso al laboratorio: %s\n", puedeIngresar ? "Autorizado" : "Denegado");
+    printf("Mayor de edad: %s\n", (edad >= 18) ? "Si" : "No");
 
     return 0;
 }
